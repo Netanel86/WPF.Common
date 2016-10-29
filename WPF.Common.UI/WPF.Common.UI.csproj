@@ -60,9 +60,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CommonIcons.resx</DependentUpon>
     </Compile>
-    <Compile Include="View\MessageControl.xaml.cs">
-      <DependentUpon>MessageControl.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="View\CustomWindow.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Controls\PulseButton.xaml">
@@ -73,15 +71,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Resources\Templates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Resources\Resources.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Styles.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\MessageControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -105,6 +99,7 @@
       <Name>WPF.Common</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

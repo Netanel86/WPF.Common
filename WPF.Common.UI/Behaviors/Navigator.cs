@@ -7,7 +7,7 @@ using System.Windows;
 using WPF.Common.ViewModel;
 using System.Windows.Controls;
 using System.Reflection;
-using WPF.Common.UI.View;
+//using WPF.Common.UI.View;
 using System.Windows.Input;
 using WPF.Common.Services;
 using WPF.Common.Messaging;
@@ -29,6 +29,14 @@ namespace WPF.Common.UI.Behaviors
             set { this.SetValue(HandlerProperty, value); }
         }
 
+        public readonly DependencyProperty MessageTypeProperty =
+            DependencyProperty.Register("MessageType", typeof(Type), typeof(Navigator));
+        public Type MessageType 
+        {
+            get { return this.GetValue(MessageTypeProperty) as Type; }
+            set { this.SetValue(MessageTypeProperty, value); }
+        }
+        
         private Panel m_RootPanel = null;
 
         protected override void OnAttached()
@@ -112,11 +120,11 @@ namespace WPF.Common.UI.Behaviors
         {
             ContentControl view = invokeControl(i_ControlType);
 
-            DialogModel dialog = null;
+            IDialogModel dialog = null;
             
             if (i_InitialValue != null )
             {
-                if ((dialog = view.TryGetViewModel() as DialogModel) != null)
+                if ((dialog = view.TryGetViewModel() as IDialogModel) != null)
                 {
                     dialog.DefaultValue = i_InitialValue;
                 }
@@ -129,14 +137,12 @@ namespace WPF.Common.UI.Behaviors
             navigate(view, i_Completed);
         }
 
-        public void NavigateTo(IMessageModel i_MessageModel, Action<object> i_Completed)
+        public void NavigateTo(IMessageModel i_MessageModel, Action<object> i_Completed) 
         {
-            MessageControl messageBox = new MessageControl();
+            UserControl message = invokeControl(MessageType) as UserControl;
+            message.DataContext = i_MessageModel;
 
-            messageBox.DataContext = i_MessageModel;
-            messageBox.InitializeComponent();
-
-            navigate(messageBox, i_Completed);
+            navigate(message, i_Completed);
         }
 
         private void navigate(ContentControl i_Control, Action<object> i_Completed)
