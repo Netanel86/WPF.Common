@@ -7,7 +7,6 @@ using System.Windows;
 using WPF.Common.ViewModel;
 using System.Windows.Controls;
 using System.Reflection;
-//using WPF.Common.UI.View;
 using System.Windows.Input;
 using WPF.Common.Services;
 using WPF.Common.Messaging;

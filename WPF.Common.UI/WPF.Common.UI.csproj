@@ -52,22 +52,21 @@
     <Compile Include="Controls\PulseButton.cs" />
     <Compile Include="Controls\TogglableTexBox.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
-    <Compile Include="Converters\CommonIconConverter.cs" />
+    <Compile Include="Converters\GeneralStringConverter.cs" />
+    <Compile Include="Converters\GeneralBitmapConverter.cs" />
+    <Compile Include="Converters\IResourceAdapter.cs" />
     <Compile Include="MVVMExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resources\CommonIcons.Designer.cs">
+    <Compile Include="Resources\MessageIconAdapter.cs" />
+    <Compile Include="Resources\MessageIcons.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CommonIcons.resx</DependentUpon>
+      <DependentUpon>MessageIcons.resx</DependentUpon>
     </Compile>
     <Compile Include="View\CustomWindow.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Controls\PulseButton.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Converters.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -88,9 +87,9 @@
     <Resource Include="Icons\warning_128pxl.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\CommonIcons.resx">
+    <EmbeddedResource Include="Resources\MessageIcons.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>CommonIcons.Designer.cs</LastGenOutput>
+      <LastGenOutput>MessageIcons.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
