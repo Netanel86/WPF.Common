@@ -12,9 +12,9 @@ namespace WPF.Common.UI.Behaviors
     public class WindowDragBehavior : Behavior<FrameworkElement>
     {
         public static readonly DependencyProperty WindowProperty =
-            DependencyProperty.Register("Window", typeof(Window), typeof(WindowDragBehavior));
+            DependencyProperty.Register("TargetWindow", typeof(Window), typeof(WindowDragBehavior));
 
-        public Window Window
+        public Window TargetWindow
         {
             get { return this.GetValue(WindowProperty) as Window; }
             set { this.SetValue(WindowProperty, value); }
@@ -35,7 +35,7 @@ namespace WPF.Common.UI.Behaviors
         {
             if (i_Args.ChangedButton == MouseButton.Left)
             {
-                Window.DragMove();
+                TargetWindow.DragMove();
             }
         }
     }

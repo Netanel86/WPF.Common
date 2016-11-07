@@ -15,7 +15,7 @@
                 <AdornerDecorator>
                     <ContentPresenter Content="{TemplateBinding HeaderContent}">
                         <i:Interaction.Behaviors>
-                            <behavior:WindowDragBehavior Window="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" />
+                            <behavior:WindowDragBehavior TargetWindow="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" />
                         </i:Interaction.Behaviors>
                     </ContentPresenter>
                 </AdornerDecorator>
@@ -31,7 +31,15 @@
                     <ResizeGrip x:Name="WindowResizeGrip" HorizontalAlignment="Right" VerticalAlignment="Bottom" IsTabStop="False" Visibility="Collapsed" />
                 </Grid>
             </Border>
-            <Thumb Height="6" Margin="14,0" Opacity="0" VerticalAlignment="Top" x:Name="ThumbTop" Cursor="SizeNS" />
+
+            <Thumb Grid.Row="0" x:Name="ThumbTop" Opacity="0" Cursor="SizeNS" VerticalAlignment="Top"  behavior:WindowResizeBehavior.TopResize="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" />
+            <Thumb Grid.Row="0" x:Name="ThumbTopLeft" Opacity="0" Cursor="SizeNWSE" VerticalAlignment="Top" HorizontalAlignment="Left"  behavior:WindowResizeBehavior.TopLeftResize="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" />
+            <Thumb Grid.Row="0" x:Name="ThumbTopRight" Opacity="0" Cursor="SizeNESW" VerticalAlignment="Top" HorizontalAlignment="Right" behavior:WindowResizeBehavior.TopRightResize="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" />
+            <Thumb Grid.Row="0" Grid.RowSpan="2" x:Name="ThumbLeft"  Opacity="0" Cursor="SizeWE" HorizontalAlignment="Left" Margin="0,14" behavior:WindowResizeBehavior.LeftResize="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
+            <Thumb Grid.Row="0" Grid.RowSpan="2" x:Name="ThumbRight" Opacity="0" Cursor="SizeWE" HorizontalAlignment="Right" Margin="0,14" behavior:WindowResizeBehavior.RightResize="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
+            <Thumb Grid.Row="1" x:Name="ThumbBottom" Opacity="0" Cursor="SizeNS" VerticalAlignment="Bottom"  behavior:WindowResizeBehavior.BottomResize="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
+            <Thumb Grid.Row="1" x:Name="ThumbBottomLeft" Opacity="0" Cursor="SizeNESW" VerticalAlignment="Bottom" HorizontalAlignment="Left" behavior:WindowResizeBehavior.BottomLeftResize="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" />
+            <Thumb Grid.Row="1" x:Name="ThumbBottomRight" Opacity="0" Cursor="SizeNWSE" VerticalAlignment="Bottom" HorizontalAlignment="Right" behavior:WindowResizeBehavior.BottomRightResize="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
         </Grid>
 
         <ControlTemplate.Triggers>

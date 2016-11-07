@@ -49,6 +49,7 @@
     <Compile Include="Behaviors\ViewLifeCycleBehavior.cs" />
     <Compile Include="Behaviors\WindowCloseBehavior.cs" />
     <Compile Include="Behaviors\WindowDragBehavior.cs" />
+    <Compile Include="Behaviors\WindowResizeBehavior.cs" />
     <Compile Include="Controls\PulseButton.cs" />
     <Compile Include="Controls\TogglableTexBox.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
