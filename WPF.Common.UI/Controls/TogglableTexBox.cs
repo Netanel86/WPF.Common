@@ -26,7 +26,7 @@ namespace WPF.Common.UI.Controls
 
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of <typeparamref name="TogglableTextBox"/>
+        /// Initializes a new instance of <see cref="TogglableTextBox"/>
         /// </summary>
         public TogglableTextBox()
         {

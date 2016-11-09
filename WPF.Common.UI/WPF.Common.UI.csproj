@@ -50,6 +50,7 @@
     <Compile Include="Behaviors\WindowCloseBehavior.cs" />
     <Compile Include="Behaviors\WindowDragBehavior.cs" />
     <Compile Include="Behaviors\WindowResizeBehavior.cs" />
+    <Compile Include="Commands\WindowMinimizeCommand.cs" />
     <Compile Include="Controls\PulseButton.cs" />
     <Compile Include="Controls\TogglableTexBox.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
@@ -65,6 +66,7 @@
       <DependentUpon>MessageIcons.resx</DependentUpon>
     </Compile>
     <Compile Include="View\CustomWindow.cs" />
+    <Compile Include="Commands\WindowMaximizeCommand.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Controls\PulseButton.xaml">
