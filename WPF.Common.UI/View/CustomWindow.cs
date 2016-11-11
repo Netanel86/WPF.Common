@@ -33,14 +33,7 @@ namespace WPF.Common.UI.View
             HwndSource.FromHwnd(handle).AddHook(new HwndSourceHook(WindowProc));
         }
 
-        // Adjust the maximized size and position to fit the work area of the correct monitor
         private const Int32 MONITOR_DEFAULTTONEAREST = 0x00000002;
-        private const Int32 MONITOR_DEFAULTTOPRIMERY = 0x00000001;
-
-        private const Int32 SM_CXMINTRACK = 0x00000034;
-        private const Int32 SM_CYMINTRACK = 0x00000035;
-        private const Int32 SM_CXMAXTRACK = 0x00000059;
-        private const Int32 SM_CYMAXTRACK = 0x00000060;
 
         private static IntPtr WindowProc(IntPtr i_Hwnd, int i_Msg, IntPtr i_WParam, IntPtr i_LParam, ref bool o_Handled)
         {
@@ -57,15 +50,12 @@ namespace WPF.Common.UI.View
 
         private static void wmGetMinMaxInfo(IntPtr i_Hwnd, IntPtr i_LParam)
         {
-            IntPtr primeryMonitor = MonitorFromWindow(IntPtr.Zero, MONITOR_DEFAULTTOPRIMERY);
-
             MINMAXINFO minMax = (MINMAXINFO)Marshal.PtrToStructure(i_LParam, typeof(MINMAXINFO));
 
             IntPtr monitor = MonitorFromWindow(i_Hwnd, MONITOR_DEFAULTTONEAREST);
 
             if (monitor != System.IntPtr.Zero)
             {
-
                 MonitorInfo monitorInfo = new MonitorInfo();
                 GetMonitorInfo(monitor, monitorInfo);
 
@@ -84,7 +74,7 @@ namespace WPF.Common.UI.View
             Marshal.StructureToPtr(minMax, i_LParam, true);
         }
 
-        #region Monitor Info Types
+        #region Monitor Info Structures
         /// <summary>
         /// Holds values for a point in a 2d enviroment
         /// </summary>

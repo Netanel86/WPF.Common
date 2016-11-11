@@ -2,25 +2,122 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:behavior="clr-namespace:WPF.Common.UI.Behaviors"
                     xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-                    xmlns:local="clr-namespace:WPF.Common.UI.View">
+                    xmlns:local="clr-namespace:WPF.Common.UI.View"
+                    xmlns:cmnd="clr-namespace:WPF.Common.UI.Commands">
 
+    <Color x:Key="DisabledControlDarkColor">#FFC5CBF9</Color>
+
+    <Color x:Key="ControlLightColor">White</Color>
+    <Color x:Key="ControlMediumColor">#FF7381F9</Color>
+    <Color x:Key="ControlDarkColor">#FF211AA9</Color>
+
+    <Color x:Key="ControlMouseOverColor">#FF3843C4</Color>
+    <Color x:Key="ControlPressedColor">#FF211AA9</Color>
+
+    <Color x:Key="BorderLightColor">#FFCCCCCC</Color>
+    <Color x:Key="BorderDarkColor">#FF444444</Color>
+
+    
+    <Style x:Key="ResizeThumb" TargetType="{x:Type Thumb}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Thumb}">
+                    <Ellipse x:Name="Ellipse"
+                 StrokeThickness="1">
+                        <Ellipse.Stroke>
+                            <LinearGradientBrush StartPoint="0,0"
+                                 EndPoint="0,1">
+                                <LinearGradientBrush.GradientStops>
+                                    <GradientStopCollection>
+                                        <GradientStop Color="{DynamicResource BorderLightColor}"
+                                Offset="0.0" />
+                                        <GradientStop Color="{DynamicResource BorderDarkColor}"
+                                Offset="1.0" />
+                                    </GradientStopCollection>
+                                </LinearGradientBrush.GradientStops>
+                            </LinearGradientBrush>
+                        </Ellipse.Stroke>
+                        <Ellipse.Fill>
+                            <LinearGradientBrush EndPoint="0.5,1"
+                                 StartPoint="0.5,0">
+                                <GradientStop Color="{DynamicResource ControlMediumColor}"
+                            Offset="1" />
+                                <GradientStop Color="{DynamicResource ControlLightColor}" />
+                            </LinearGradientBrush>
+                        </Ellipse.Fill>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).
+                    (GradientBrush.GradientStops)[0].(GradientStop.Color)"
+                                                Storyboard.TargetName="Ellipse">
+                                            <EasingColorKeyFrame KeyTime="0"
+                                         Value="{StaticResource ControlMouseOverColor}" />
+                                        </ColorAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).
+                    (GradientBrush.GradientStops)[0].(GradientStop.Color)"
+                                                Storyboard.TargetName="Ellipse">
+                                            <EasingColorKeyFrame KeyTime="0"
+                                         Value="{StaticResource ControlPressedColor}" />
+                                        </ColorAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).
+                    (GradientBrush.GradientStops)[0].(GradientStop.Color)"
+                                                Storyboard.TargetName="Ellipse">
+                                            <EasingColorKeyFrame KeyTime="0"
+                                         Value="{StaticResource DisabledControlDarkColor}" />
+                                        </ColorAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Ellipse>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}},Path=ResizeMode}" Value="NoResize">
+                <Setter Property="Visibility" Value="Collapsed"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+    
     <ControlTemplate x:Key="CustomWindowTemplate" TargetType="{x:Type local:CustomWindow}">
+        <ControlTemplate.Resources>
+            <cmnd:WindowMaximizeCommand x:Key="WindowMaximizeCommand" />
+        </ControlTemplate.Resources>
+            
         <Grid Background="{TemplateBinding Background}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="30" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
+            <!-- Window header content -->
             <ContentControl Grid.Row="0">
                 <AdornerDecorator>
                     <ContentPresenter Content="{TemplateBinding HeaderContent}">
                         <i:Interaction.Behaviors>
                             <behavior:WindowDragBehavior TargetWindow="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" />
                         </i:Interaction.Behaviors>
+                        <ContentPresenter.InputBindings>
+                            <MouseBinding MouseAction="LeftDoubleClick" Command="{StaticResource WindowMaximizeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" />
+                        </ContentPresenter.InputBindings>
                     </ContentPresenter>
                 </AdornerDecorator>
             </ContentControl>
 
+            <!-- Window content-->
             <Border Grid.Row="1" BorderBrush="{TemplateBinding BorderBrush}" 
                         BorderThickness="{TemplateBinding BorderThickness}" 
                         Background="{TemplateBinding Background}">
@@ -28,27 +125,25 @@
                     <AdornerDecorator>
                         <ContentPresenter/>
                     </AdornerDecorator>
-                    <ResizeGrip x:Name="WindowResizeGrip" HorizontalAlignment="Right" VerticalAlignment="Bottom" IsTabStop="False" Visibility="Collapsed" />
                 </Grid>
             </Border>
 
-            <Thumb Grid.Row="0" x:Name="ThumbTop" Opacity="0" Cursor="SizeNS" VerticalAlignment="Top"  behavior:WindowResizeBehavior.TopResize="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" />
-            <Thumb Grid.Row="0" x:Name="ThumbTopLeft" Opacity="0" Cursor="SizeNWSE" VerticalAlignment="Top" HorizontalAlignment="Left"  behavior:WindowResizeBehavior.TopLeftResize="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" />
-            <Thumb Grid.Row="0" x:Name="ThumbTopRight" Opacity="0" Cursor="SizeNESW" VerticalAlignment="Top" HorizontalAlignment="Right" behavior:WindowResizeBehavior.TopRightResize="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" />
-            <Thumb Grid.Row="0" Grid.RowSpan="2" x:Name="ThumbLeft"  Opacity="0" Cursor="SizeWE" HorizontalAlignment="Left" Margin="0,14" behavior:WindowResizeBehavior.LeftResize="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
-            <Thumb Grid.Row="0" Grid.RowSpan="2" x:Name="ThumbRight" Opacity="0" Cursor="SizeWE" HorizontalAlignment="Right" Margin="0,14" behavior:WindowResizeBehavior.RightResize="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
-            <Thumb Grid.Row="1" x:Name="ThumbBottom" Opacity="0" Cursor="SizeNS" VerticalAlignment="Bottom"  behavior:WindowResizeBehavior.BottomResize="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
-            <Thumb Grid.Row="1" x:Name="ThumbBottomLeft" Opacity="0" Cursor="SizeNESW" VerticalAlignment="Bottom" HorizontalAlignment="Left" behavior:WindowResizeBehavior.BottomLeftResize="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" />
-            <Thumb Grid.Row="1" x:Name="ThumbBottomRight" Opacity="0" Cursor="SizeNWSE" VerticalAlignment="Bottom" HorizontalAlignment="Right" behavior:WindowResizeBehavior.BottomRightResize="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
+            <Thumb Style="{StaticResource ResizeThumb}" Grid.Row="0" x:Name="ThumbTop" Opacity="0" Cursor="SizeNS" VerticalAlignment="Top"  behavior:WindowResizeBehavior.TopResize="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" />
+            <Thumb Style="{StaticResource ResizeThumb}" Grid.Row="0" x:Name="ThumbTopLeft" Opacity="0" Cursor="SizeNWSE" VerticalAlignment="Top" HorizontalAlignment="Left"  behavior:WindowResizeBehavior.TopLeftResize="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" />
+            <Thumb Style="{StaticResource ResizeThumb}" Grid.Row="0" x:Name="ThumbTopRight" Opacity="0" Cursor="SizeNESW" VerticalAlignment="Top" HorizontalAlignment="Right" behavior:WindowResizeBehavior.TopRightResize="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" />
+            <Thumb Style="{StaticResource ResizeThumb}" Grid.Row="0" Grid.RowSpan="2" x:Name="ThumbLeft"  Opacity="0" Cursor="SizeWE" HorizontalAlignment="Left" Margin="0,14" behavior:WindowResizeBehavior.LeftResize="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
+            <Thumb Style="{StaticResource ResizeThumb}" Grid.Row="0" Grid.RowSpan="2" x:Name="ThumbRight" Opacity="0" Cursor="SizeWE" HorizontalAlignment="Right" Margin="0,14" behavior:WindowResizeBehavior.RightResize="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
+            <Thumb Style="{StaticResource ResizeThumb}" Grid.Row="1" x:Name="ThumbBottom" Opacity="0" Cursor="SizeNS" VerticalAlignment="Bottom"  behavior:WindowResizeBehavior.BottomResize="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
+            <Thumb Style="{StaticResource ResizeThumb}" Grid.Row="1" x:Name="ThumbBottomLeft" Opacity="0" Cursor="SizeNESW" VerticalAlignment="Bottom" HorizontalAlignment="Left" behavior:WindowResizeBehavior.BottomLeftResize="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}" />
+            <Thumb Style="{StaticResource ResizeThumb}" Grid.Row="1" x:Name="ThumbBottomRight" Opacity="0" Cursor="SizeNWSE" VerticalAlignment="Bottom" HorizontalAlignment="Right" behavior:WindowResizeBehavior.BottomRightResize="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
         </Grid>
-
+        
         <ControlTemplate.Triggers>
             <MultiTrigger>
                 <MultiTrigger.Conditions>
-                    <Condition Property="ResizeMode" Value="CanResizeWithGrip" />
-                    <Condition Property="WindowState" Value="Normal" />
+                    <Condition Property="WindowState" Value="Maximized" />
                 </MultiTrigger.Conditions>
-                <Setter Property="Visibility" TargetName="WindowResizeGrip" Value="Visible" />
+                <Setter Property="ResizeMode" Value="NoResize"/>
             </MultiTrigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
