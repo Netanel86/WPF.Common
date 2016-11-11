@@ -94,7 +94,7 @@ namespace WPF.Common.UI.Controls
             ScaleTransform scaleTransform = new ScaleTransform(k_ScaleMinDefault, k_ScaleMinDefault);
             base.RenderTransform = scaleTransform;
             base.RenderTransformOrigin = new Point(0.5, 0.5);
-
+            
             DoubleAnimation animationX = new DoubleAnimation()
             {
                 From = k_ScaleMinDefault,

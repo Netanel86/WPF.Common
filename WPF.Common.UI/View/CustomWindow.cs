@@ -33,12 +33,21 @@ namespace WPF.Common.UI.View
             HwndSource.FromHwnd(handle).AddHook(new HwndSourceHook(WindowProc));
         }
 
-        private static IntPtr WindowProc(IntPtr i_Hwnd, int i_Msg, IntPtr i_WidthParam, IntPtr i_LengthParam, ref bool o_Handled)
+        // Adjust the maximized size and position to fit the work area of the correct monitor
+        private const Int32 MONITOR_DEFAULTTONEAREST = 0x00000002;
+        private const Int32 MONITOR_DEFAULTTOPRIMERY = 0x00000001;
+
+        private const Int32 SM_CXMINTRACK = 0x00000034;
+        private const Int32 SM_CYMINTRACK = 0x00000035;
+        private const Int32 SM_CXMAXTRACK = 0x00000059;
+        private const Int32 SM_CYMAXTRACK = 0x00000060;
+
+        private static IntPtr WindowProc(IntPtr i_Hwnd, int i_Msg, IntPtr i_WParam, IntPtr i_LParam, ref bool o_Handled)
         {
             switch (i_Msg)
             {
                 case 0x0024: /* WM_GETMINMAXINFO */
-                    wmGetMinMaxInfo(i_Hwnd, i_LengthParam);
+                    wmGetMinMaxInfo(i_Hwnd, i_LParam);
                     o_Handled = true;
                     break;
             }
@@ -46,12 +55,11 @@ namespace WPF.Common.UI.View
             return (IntPtr)0;
         }
 
-        private static void wmGetMinMaxInfo(IntPtr i_Hwnd, IntPtr i_LengthParam)
+        private static void wmGetMinMaxInfo(IntPtr i_Hwnd, IntPtr i_LParam)
         {
-            MINMAXINFO minMax = (MINMAXINFO)Marshal.PtrToStructure(i_LengthParam, typeof(MINMAXINFO));
+            IntPtr primeryMonitor = MonitorFromWindow(IntPtr.Zero, MONITOR_DEFAULTTOPRIMERY);
 
-            // Adjust the maximized size and position to fit the work area of the correct monitor
-            int MONITOR_DEFAULTTONEAREST = 0x00000002;
+            MINMAXINFO minMax = (MINMAXINFO)Marshal.PtrToStructure(i_LParam, typeof(MINMAXINFO));
 
             IntPtr monitor = MonitorFromWindow(i_Hwnd, MONITOR_DEFAULTTONEAREST);
 
@@ -60,15 +68,20 @@ namespace WPF.Common.UI.View
 
                 MonitorInfo monitorInfo = new MonitorInfo();
                 GetMonitorInfo(monitor, monitorInfo);
+
                 RECT rcWorkArea = monitorInfo.RectWorkArea;
                 RECT rcMonitorArea = monitorInfo.RectMontior;
-                minMax.PntMaxPosition.X= (int)Math.Abs(rcWorkArea.Left - rcMonitorArea.Left);
+
+                minMax.PntMaxPosition.X = (int)Math.Abs(rcWorkArea.Left - rcMonitorArea.Left);
                 minMax.PntMaxPosition.Y = (int)Math.Abs(rcWorkArea.Top - rcMonitorArea.Top);
                 minMax.PntMaxSize.X = (int)Math.Abs(rcWorkArea.Right - rcWorkArea.Left);
                 minMax.PntMaxSize.Y = (int)Math.Abs(rcWorkArea.Bottom - rcWorkArea.Top);
+
+                minMax.PntMaxTrackSize.X = minMax.PntMaxSize.X;
+                minMax.PntMaxTrackSize.Y = minMax.PntMaxSize.Y;
             }
 
-            Marshal.StructureToPtr(minMax, i_LengthParam, true);
+            Marshal.StructureToPtr(minMax, i_LParam, true);
         }
 
         #region Monitor Info Types
@@ -110,7 +123,7 @@ namespace WPF.Common.UI.View
             /// <summary>
             /// A reserved point for system use. leave empty.
             /// </summary>
-            public  POINT PntReserved;
+            public POINT PntReserved;
 
             /// <summary>
             /// Window's max size 
@@ -242,8 +255,7 @@ namespace WPF.Common.UI.View
             /// <summary>
             /// A set of flags that represent attributes of the display monitor
             /// </summary>
-            public int Flags;
- 
+            public int Flags = 0;
         }
         #endregion
 
