@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace WPF.Common
+namespace WPF.Common.Input
 {
-    public class RelayCommand : ICommand
+    public class RelayCommand : CommandBase
     {
         private Predicate<object> m_CanExecute;
         private Action<object> m_Execute;
@@ -30,7 +30,7 @@ namespace WPF.Common
             : this(i_Execute, x => true)
         { }
 
-        public bool CanExecute(object parameter)
+        public override bool CanExecute(object parameter)
         {
             if (this.m_CanExecute != null)
             {
@@ -45,17 +45,7 @@ namespace WPF.Common
             return m_CanExecuteCurrentState;
         }
 
-        public event EventHandler CanExecuteChanged;
-
-        protected void OnCanExecuteChanged()
-        {
-            if (this.CanExecuteChanged != null)
-            {
-                this.CanExecuteChanged(this, EventArgs.Empty);
-            }
-        }
-
-        public void Execute(object parameter)
+        public override void Execute(object parameter)
         {
             this.m_Execute(parameter);
         }

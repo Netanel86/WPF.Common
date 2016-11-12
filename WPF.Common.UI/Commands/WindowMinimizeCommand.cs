@@ -4,20 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Windows.Input;
 using System.Windows;
+using WPF.Common.Input;
 
 
 namespace WPF.Common.UI.Commands
 {
-    public class WindowMinimizeCommand : ICommand
+    public class WindowMinimizeCommand : CommandBase
     {
-        public bool CanExecute(object parameter)
+        public override bool CanExecute(object parameter)
         {
             return true;
         }
 
-        public event EventHandler CanExecuteChanged;
-
-        public void Execute(object parameter)
+        public override void Execute(object parameter)
         {
             Window window = parameter as Window;
 

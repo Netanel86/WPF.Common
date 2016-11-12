@@ -13,18 +13,13 @@ using WPF.Common.Messaging;
 
 namespace WPF.Common.UI.Behaviors
 {
-    public interface INavigationHeader
-    {
-        INavigationService Navigator { get; set; }
-    }
-    
     public class Navigator : Behavior<Window>, INavigationService
     {
         public readonly DependencyProperty HandlerProperty =
-            DependencyProperty.Register("Handler", typeof(INavigationHeader), typeof(Navigator));
-        public INavigationHeader Handler
+            DependencyProperty.Register("Handler", typeof(INavigable), typeof(Navigator));
+        public INavigable Handler
         {
-            get { return this.GetValue(HandlerProperty) as INavigationHeader; }
+            get { return this.GetValue(HandlerProperty) as INavigable; }
             set { this.SetValue(HandlerProperty, value); }
         }
 
@@ -182,11 +177,6 @@ namespace WPF.Common.UI.Behaviors
 
                 OnViewChanged(GetCurrentDataContext());
             }
-        }
-
-        public void Close()
-        {
-            this.AssociatedObject.Close();
         }
 
         public event EventHandler ViewChanged;

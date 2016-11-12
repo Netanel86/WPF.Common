@@ -47,9 +47,9 @@
   <ItemGroup>
     <Compile Include="Behaviors\Navigator.cs" />
     <Compile Include="Behaviors\ViewLifeCycleBehavior.cs" />
-    <Compile Include="Behaviors\WindowCloseBehavior.cs" />
     <Compile Include="Behaviors\WindowDragBehavior.cs" />
     <Compile Include="Behaviors\WindowResizeBehavior.cs" />
+    <Compile Include="Commands\WindowCloseCommand.cs" />
     <Compile Include="Commands\WindowMinimizeCommand.cs" />
     <Compile Include="Controls\PulseButton.cs" />
     <Compile Include="Controls\TogglableTexBox.cs" />
@@ -101,7 +101,6 @@
       <Name>WPF.Common</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -22,8 +22,6 @@ namespace WPF.Common.Services
 
         void NavigateBackwards(object i_Result);
 
-        void Close();
-
         event EventHandler ViewChanged;
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Input;
+using WPF.Common.Input;
 
 namespace WPF.Common.ViewModel
 {

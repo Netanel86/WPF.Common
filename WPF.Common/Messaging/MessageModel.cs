@@ -5,6 +5,7 @@ using System.Text;
 using WPF.Common.ViewModel;
 using WPF.Common.Services;
 using System.Windows.Input;
+using WPF.Common.Input;
 
 namespace WPF.Common.Messaging
 {
