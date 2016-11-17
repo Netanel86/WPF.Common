@@ -9,6 +9,9 @@ using WPF.Common.Input;
 
 namespace WPF.Common.UI.Commands
 {
+    /// <summary>
+    /// Command for minimizing a window
+    /// </summary>
     public class WindowMinimizeCommand : CommandBase
     {
         public override bool CanExecute(object parameter)

@@ -5,6 +5,9 @@ using System.Text;
 
 namespace WPF.Common.Messaging
 {
+    /// <summary>
+    /// an enumeration representing the type of icons available for a <see cref="MessageModel"/>
+    /// </summary>
     public enum eMessageIcon
     {
         Exclamation,

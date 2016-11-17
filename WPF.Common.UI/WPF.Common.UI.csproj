@@ -65,7 +65,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MessageIcons.resx</DependentUpon>
     </Compile>
-    <Compile Include="View\CustomWindow.cs" />
+    <Compile Include="Infrastracture\CustomWindow.cs" />
     <Compile Include="Commands\WindowMaximizeCommand.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -8,6 +8,9 @@ using WPF.Common.Input;
 
 namespace WPF.Common.UI.Commands
 {
+    /// <summary>
+    /// Command for maximizing a window
+    /// </summary>
     public class WindowMaximizeCommand : CommandBase
     {
         public override bool CanExecute(object parameter)

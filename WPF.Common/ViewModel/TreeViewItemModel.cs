@@ -46,12 +46,12 @@ namespace WPF.Common.ViewModel
         }
 
         /// <summary>
-        /// Represents the state of the <paramref name="Children"/> collection.
+        /// Gets the state of the <paramref name="Children"/> collection.
         /// </summary>
         /// <remarks>
         /// returns true if two criteria's are met: 
         /// 1.the collection is not empty
-        /// 2.the first child is not the <see cref="sr_DummyItem"/>
+        /// 2.the first child is not the <see cref="DummyItem"/>
         /// </remarks>
         public bool IsPopulated
         {

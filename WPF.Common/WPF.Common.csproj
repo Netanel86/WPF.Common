@@ -61,9 +61,9 @@
     <Compile Include="Input\RelayCommand.cs" />
     <Compile Include="Services\INavigable.cs" />
     <Compile Include="Services\INavigationService.cs" />
+    <Compile Include="Services\IServiceManager.cs" />
     <Compile Include="Services\ServiceManager.cs" />
     <Compile Include="ViewModel\DialogModel.cs" />
-    <Compile Include="ViewModel\IClosableElement.cs" />
     <Compile Include="ViewModel\IDialogModel.cs" />
     <Compile Include="ViewModel\TreeViewItemModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />

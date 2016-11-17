@@ -7,6 +7,9 @@ using System.Windows;
 
 namespace WPF.Common.UI.Commands
 {
+    /// <summary>
+    /// Command for closing a <see cref="Window"/>
+    /// </summary>
     public class WindowCloseCommand : CommandBase
     {
         public override bool CanExecute(object parameter)

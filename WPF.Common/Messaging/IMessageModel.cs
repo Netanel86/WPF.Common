@@ -8,6 +8,12 @@ using WPF.Common.Services;
 
 namespace WPF.Common.Messaging
 {
+    /// <summary>
+    /// Defines properties to interact with a message class
+    /// </summary>
+    /// <remarks>
+    /// Interface should be implemented in message classes presented with the <see cref="Navigator"/> class
+    /// </remarks>
     public interface IMessageModel
     {
         string Title { get; }

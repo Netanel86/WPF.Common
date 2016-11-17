@@ -8,13 +8,29 @@ using System.Windows.Interop;
 using MS.Win32;
 using System.Runtime.InteropServices;
 
-namespace WPF.Common.UI.View
+namespace WPF.Common.UI.Infrastracture
 {
+    /// <summary>
+    /// Custom window class for creating a fully customizable window
+    /// </summary>
     public class CustomWindow : Window
     {
+        /// <summary>
+        /// Dependancy propety represting the <see cref="HeaderContent"/> property.
+        /// </summary>
         public static readonly DependencyProperty HeaderContentProperty =
             DependencyProperty.Register("HeaderContent",typeof(object),typeof(CustomWindow));
 
+        /// <summary>
+        /// The customized header view
+        /// </summary>
+        /// <example>
+        /// <code>
+        /// <infra:CustomWindow.HeaderContent>
+        ///     <view:MyCustomHeader DataContext="{StaticResource HeaderModel}"/>
+        ///</infra:CustomWindow.HeaderContent>
+        /// </code>
+        /// </example>
         public object HeaderContent
         {
             get { return this.GetValue(HeaderContentProperty); }
