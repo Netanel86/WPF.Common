@@ -18,12 +18,7 @@ namespace WPF.Common.Messaging
 
         public MessageModel()
         {
-            DefaultButtonCommand = new RelayCommand(x => OnCloseRequest(true));
-        }
-
-        protected void OnCloseRequest(bool i_DialogCanceled)
-        {
-            this.Navigator.NavigateBackwards(null);
+            DefaultButtonCommand = new RelayCommand(x => this.Navigator.NavigateBackwards(null));
         }
 
         public ICommand DefaultButtonCommand { set; get; }

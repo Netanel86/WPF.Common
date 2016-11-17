@@ -6,18 +6,6 @@ namespace WPF.Common.ViewModel
 {
     public abstract class DialogModel : ViewModelBase, IDialogModel
     {
-        private object m_ReturnValue;
-
-        public object ReturnValue
-        {
-            get { return m_ReturnValue; }
-            set
-            {
-                m_ReturnValue = value;
-                this.OnPropertyChanged("ReturnValue");
-            }
-        }
-
         public object DefaultValue { get; set; }
 
         private const bool v_DialogCanceled = true;
