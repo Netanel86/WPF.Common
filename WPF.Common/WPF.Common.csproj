@@ -30,6 +30,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
@@ -58,6 +61,7 @@
     <Compile Include="Input\RelayCommand.cs" />
     <Compile Include="Services\INavigable.cs" />
     <Compile Include="Services\INavigationService.cs" />
+    <Compile Include="Services\ServiceManager.cs" />
     <Compile Include="ViewModel\DialogModel.cs" />
     <Compile Include="ViewModel\IClosableElement.cs" />
     <Compile Include="ViewModel\IDialogModel.cs" />

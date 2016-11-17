@@ -1,4 +1,6 @@
 ﻿using WPF.Common.Aggregators;
+using System;
+using WPF.Common.Services;
 
 namespace WPF.Common.ViewModel
 {
@@ -9,13 +11,22 @@ namespace WPF.Common.ViewModel
     public class ViewModelBase : BindableObject
     {
         private static readonly IEventAggregator sr_Messanger = new EventAggregator();
+        private static readonly IServiceManager sr_Services = new ServiceManager();
         
         /// <summary>
-        /// Get a static instance of the concrete <see cref="IEventAggregator"/>
+        /// Gets a static instance of a Messanger service
         /// </summary>
         protected IEventAggregator Messanger
         {
             get { return sr_Messanger; }
+        }
+
+        /// <summary>
+        /// Gets a static instance of a Service manager
+        /// </summary>
+        protected IServiceManager Services
+        {
+            get { return sr_Services; }
         }
     }
 
